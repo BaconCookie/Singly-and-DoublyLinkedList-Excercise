@@ -30,7 +30,6 @@ public class SinglyLinkedList<T> implements Listable<T> {
     }
 
 
-
     // Such an insert can be done in two steps:
     // Update link of the "previous" node, to point to the new node.
     // Update link of the new node, to point to the "next" node.
@@ -46,21 +45,20 @@ public class SinglyLinkedList<T> implements Listable<T> {
         }
         if (index == 0) {
             addFirst(newNode);
-        }
-        else {
+        } else {
             int size = getSize();
             if (index > size - 1) {
                 throw new IndexOutOfBoundsException("Index bigger than size!");
             } else {
-                Node findPreviousNode = head;
+                Node previousNode = head;
                 Node temp;
 
                 for (int i = 0; i < previousIndex; i++) {
-                    findPreviousNode = findPreviousNode.next;
+                    previousNode = previousNode.next;
                 }
 
-                temp = findPreviousNode.next;
-                findPreviousNode.next = newNode;
+                temp = previousNode.next;
+                previousNode.next = newNode;
                 newNode.next = temp;
             }
         }
@@ -77,7 +75,28 @@ public class SinglyLinkedList<T> implements Listable<T> {
 
     @Override
     public void remove(int index) {
+        if (index == 0) {
+            head.next = head;
+        } else {
+            int size = getSize();
+            if (index > size - 1) {
+                throw new IndexOutOfBoundsException("Index bigger than size!");
+            } else {
+                int previousIndex = index - 1;
+                Node previousNode = head;
+                Node nextNode = head;
 
+                for (int i = 0; i < previousIndex; i++) {
+                    previousNode = previousNode.next;
+                    nextNode = nextNode.next;
+                }
+                //move the next Node to its new spot
+                nextNode = nextNode.next;
+                nextNode = nextNode.next;
+                //point with previous Node to the new next Node and forget about the Node to remove
+                previousNode.next = nextNode;
+            }
+        }
     }
 
     @Override

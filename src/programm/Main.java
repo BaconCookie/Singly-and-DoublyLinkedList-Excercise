@@ -22,5 +22,9 @@ public class Main {
 
         list.insertAt(2, s4);
         list.printAll();
+        System.out.println();
+
+        list.remove(1);
+        list.printAll();
     }
 }

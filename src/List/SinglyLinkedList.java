@@ -64,6 +64,7 @@ public class SinglyLinkedList<T> implements Listable<T> {
         }
     }
 
+
     public void addFirst(Node newNode) {
         if (newNode == null) {
             throw new IllegalArgumentException("New Npode is null!");
@@ -90,14 +91,16 @@ public class SinglyLinkedList<T> implements Listable<T> {
                     previousNode = previousNode.next;
                     nextNode = nextNode.next;
                 }
-                //move the next Node to its new spot
+                //move the next Node to its own spot (index + 1)
                 nextNode = nextNode.next;
                 nextNode = nextNode.next;
-                //point with previous Node to the new next Node and forget about the Node to remove
+                //point with previous Node to the new next Node and, as a result,
+                // forget about the Node to remove
                 previousNode.next = nextNode;
             }
         }
     }
+
 
     @Override
     public T get(int index) {

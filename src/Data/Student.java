@@ -1,5 +1,7 @@
 package Data;
 
+import List.DegreeProgram;
+
 /**
  * Created by laura on 25.10.16.
  */
@@ -11,12 +13,12 @@ public class Student {
                 "prename='" + prename + '\'' +
                 ", surname='" + surname + '\'' +
                 ", studentNumber=" + studentNumber +
-                ", degreeProgram=" + degreeProgram +
+                ", DegreeProgram=" + degreeProgram +
                 ", gender=" + gender +
                 '}';
     }
 
-    public Student(String prename, String surname, int studentNumber, String degreeProgram, int gender) {
+    public Student(String prename, String surname, int studentNumber, DegreeProgram degreeProgram, int gender) {
         this.prename = prename;
         this.surname = surname;
         this.studentNumber = studentNumber;                                                       //Matrikelnummer
@@ -28,7 +30,7 @@ public class Student {
     private String prename;
     private String surname;
     private int studentNumber;
-    private String degreeProgram;
+    private DegreeProgram degreeProgram;
     private int gender;
 
 
@@ -56,11 +58,11 @@ public class Student {
         this.studentNumber = studentNumber;
     }
 
-    public String getDegreeProgram() {
+    public DegreeProgram getDegreeProgram() {
         return degreeProgram;
     }
 
-    public void setDegreeProgram(String degreeProgram) {
+    public void setDegreeProgram(DegreeProgram degreeProgram) {
         this.degreeProgram = degreeProgram;
     }
 

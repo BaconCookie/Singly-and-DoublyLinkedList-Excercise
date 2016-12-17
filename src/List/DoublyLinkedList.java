@@ -8,6 +8,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
     private Node head;
     private Node tail;
+    private int size;
 
     private class Node {
         T data;
@@ -15,9 +16,52 @@ public class DoublyLinkedList<T> implements Listable<T> {
         Node next;
     }
 
+
+    /**
+     * Method to add an Node to the List
+     * (at the end if there are elements present).
+     *
+     * @param data data content of the Node
+     */
     @Override
     public void add(T data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = null;
+        newNode.prev = null;
 
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+    }
+
+
+    /**
+     * Method to add an Node before the first Node.
+     *
+     * @param data data content of the new Node
+     */
+    @Override
+    public void addFirst(T data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = null;
+        newNode.prev = null;
+
+        if (newNode == null) {
+            throw new IllegalArgumentException("New Node is null!");
+        }
+        head = newNode;
+        tail = newNode;
+        newNode.next = null;
+        newNode.prev = null;
     }
 
     @Override
@@ -45,8 +89,16 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
     }
 
+
+    //Same as in SinglyLinkedList
     @Override
     public int getSize() {
-        return 0;
+        int count = 0;
+        Node temp = head;
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+        return count;
     }
 }

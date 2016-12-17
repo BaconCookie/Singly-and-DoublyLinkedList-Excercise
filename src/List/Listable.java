@@ -3,7 +3,11 @@
  */
 package List;
 
+import javax.xml.soap.Node;
+
 public interface Listable<T> {
+
+    public void addFirst(T data);
 
     public void add(T data);
 

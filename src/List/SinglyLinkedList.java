@@ -12,6 +12,13 @@ public class SinglyLinkedList<T> implements Listable<T> {
         Node next;
     }
 
+
+    /**
+     * Method to add an Node to the List
+     * (at the end if there are elements present).
+     *
+     * @param data data content of the new Node
+     */
     @Override
     public void add(T data) {
         Node newNode = new Node();
@@ -30,6 +37,27 @@ public class SinglyLinkedList<T> implements Listable<T> {
     }
 
 
+    /**
+     * Method to add an Node as the first Node.
+     *
+     * @param data data from Node that is being added
+     */
+    @Override
+    public void addFirst(T data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = null;
+        if (newNode == null) {
+            throw new IllegalArgumentException("New Node is null!");
+        }
+        if (getSize() == 0) {
+            head = newNode;
+        } else {
+            newNode.next = head;
+            head = newNode;
+        }
+    }
+
     // Such an insert can be done in two steps:
     // Update link of the "previous" node, to point to the new node.
     // Update link of the new node, to point to the "next" node.
@@ -44,7 +72,7 @@ public class SinglyLinkedList<T> implements Listable<T> {
             throw new IllegalArgumentException("No data in Node. Node is null.");
         }
         if (index == 0) {
-            addFirst(newNode);
+            addFirst(data);
         } else {
             int size = getSize();
             if (index > size - 1) {
@@ -62,15 +90,6 @@ public class SinglyLinkedList<T> implements Listable<T> {
                 newNode.next = temp;
             }
         }
-    }
-
-
-    public void addFirst(Node newNode) {
-        if (newNode == null) {
-            throw new IllegalArgumentException("New Npode is null!");
-        }
-        newNode.next = head;
-        head = newNode;
     }
 
 
@@ -94,7 +113,7 @@ public class SinglyLinkedList<T> implements Listable<T> {
                 //move the next Node to its own spot (index + 1)
                 nextNode = nextNode.next;
                 nextNode = nextNode.next;
-                //point with previous Node to the new next Node and, as a result,
+                //point with previous Node to the new next Node and, as a result;
                 // forget about the Node to remove
                 previousNode.next = nextNode;
             }

@@ -16,7 +16,6 @@ public class DoublyLinkedList<T> implements Listable<T> {
         Node next;
     }
 
-
     /**
      * Method to add an Node to the List
      * (at the end if there are elements present).
@@ -95,10 +94,8 @@ public class DoublyLinkedList<T> implements Listable<T> {
                 newNode.next = temp;
                 newNode.prev = previousNode;
                 temp.prev = newNode;
-
             }
         }
-
     }
 
     @Override
@@ -154,8 +151,6 @@ public class DoublyLinkedList<T> implements Listable<T> {
                 previousNode.next = nextNode;
                 nextNode.prev = previousNode;
             }
-
-
         }
     }
 
@@ -166,12 +161,18 @@ public class DoublyLinkedList<T> implements Listable<T> {
     }
 
     @Override
-    public void clear() {
-
+    public void clear()  {
+        head = null;
+        tail = null;
     }
 
     @Override
     public void printAll() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
 
     }
 

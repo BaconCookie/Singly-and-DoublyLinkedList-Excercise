@@ -99,8 +99,8 @@ public class SinglyLinkedList<T> implements Listable<T> {
             head.next = head;
         } else {
             int size = getSize();
-            if (index > size - 1) {
-                throw new IndexOutOfBoundsException("Index bigger than size!");
+            if (index > size - 1|| index < 0) {
+                throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
             } else {
                 int previousIndex = index - 1;
                 Node previousNode = head;

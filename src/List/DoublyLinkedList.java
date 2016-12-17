@@ -39,6 +39,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
                 temp = temp.next;
             }
             temp.next = newNode;
+            tail = newNode;
         }
     }
 
@@ -66,6 +67,37 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
     @Override
     public void insertAt(int index, T data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = null;
+        newNode.prev = null;
+        int previousIndex = index - 1;
+
+        if (newNode == null) {
+            throw new IllegalArgumentException("No data in Node. Node is null.");
+        }
+        if (index == 0) {
+            addFirst(data);
+        } else {
+            int size = getSize();
+            if (index > size - 1) {
+                throw new IndexOutOfBoundsException("Index bigger than size!");
+            } else {
+                Node previousNode = head;
+                Node temp;
+
+                for (int i = 0; i < previousIndex; i++) {
+                    previousNode = previousNode.next;
+                }
+
+                temp = previousNode.next;
+                previousNode.next = newNode;
+                newNode.next = temp;
+                newNode.prev = previousNode;
+                temp.prev = newNode;
+
+            }
+        }
 
     }
 

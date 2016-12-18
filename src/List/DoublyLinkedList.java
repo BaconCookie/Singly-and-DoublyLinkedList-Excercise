@@ -15,10 +15,10 @@ public class DoublyLinkedList<T> implements Listable<T> {
     }
 
     /**
-     * Method to add an Node to the List
+     * Method to add an element to the List
      * (at the end if there are elements present).
      *
-     * @param data data content of the Node
+     * @param data data content of the element
      */
     @Override
     public void add(T data) {
@@ -42,9 +42,9 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
 
     /**
-     * Method to add an Node before the first Node.
+     * Method to add an element as the first element
      *
-     * @param data data content of the new Node
+     * @param data data from element that is being added
      */
     @Override
     public void addFirst(T data) {
@@ -62,6 +62,12 @@ public class DoublyLinkedList<T> implements Listable<T> {
         newNode.prev = null;
     }
 
+    /**
+     * Method which inserts a new element to a list
+     *
+     * @param index where new element is placed in a list
+     * @param data  which belong to the element to insert
+     */
     @Override
     public void insertAt(int index, T data) {
         Node newNode = new Node();
@@ -96,6 +102,11 @@ public class DoublyLinkedList<T> implements Listable<T> {
         }
     }
 
+    /**
+     * Method which removes an element from a list
+     *
+     * @param index of element to remove
+     */
     @Override
     public void remove(int index) {
         int size = getSize();
@@ -152,6 +163,12 @@ public class DoublyLinkedList<T> implements Listable<T> {
     }
 
 
+    /**
+     * Method which gets the data from a specific element
+     *
+     * @param index of element to get
+     * @return data of element to get
+     */
     @Override
     public T get(int index) {
         int size = getSize();
@@ -191,17 +208,28 @@ public class DoublyLinkedList<T> implements Listable<T> {
         }
     }
 
+    /**
+     * Method which seems to clear the list by pointing the head and tail to null and thus making all listed element unreachable
+     */
     @Override
     public void clear() {
         head = null;
         tail = null;
     }
 
+    /**
+     * Method which prints one element of the list
+     *
+     * @param index index of element to print
+     */
     @Override
     public void print(int index) {
         System.out.println(get(index));
     }
 
+    /**
+     * Method to print all elements of a list
+     */
     @Override
     public void printAll() {
         Node temp = head;
@@ -212,6 +240,11 @@ public class DoublyLinkedList<T> implements Listable<T> {
     }
 
 
+    /**
+     * Method which gets the size of a list
+     *
+     * @return int number of elements in a list
+     */
     //Same as in SinglyLinkedList
     @Override
     public int getSize() {

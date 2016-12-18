@@ -14,10 +14,10 @@ public class SinglyLinkedList<T> implements Listable<T> {
 
 
     /**
-     * Method to add an Node to the List
-     * (at the end if there are elements present).
+     * Method to add an element to the List
+     * (at the end if there are elements present)
      *
-     * @param data data content of the new Node
+     * @param data data content of the new element
      */
     @Override
     public void add(T data) {
@@ -38,9 +38,9 @@ public class SinglyLinkedList<T> implements Listable<T> {
 
 
     /**
-     * Method to add an Node as the first Node.
+     * Method to add an element as the first element
      *
-     * @param data data from Node that is being added
+     * @param data data from element that is being added
      */
     @Override
     public void addFirst(T data) {
@@ -58,9 +58,12 @@ public class SinglyLinkedList<T> implements Listable<T> {
         }
     }
 
-    // Such an insert can be done in two steps:
-    // Update link of the "previous" node, to point to the new node.
-    // Update link of the new node, to point to the "next" node.
+    /**
+     * Method which inserts a new element to a list
+     *
+     * @param index where new element is placed in a list
+     * @param data  which belong to the element to insert
+     */
     @Override
     public void insertAt(int index, T data) {
         Node newNode = new Node();
@@ -84,7 +87,8 @@ public class SinglyLinkedList<T> implements Listable<T> {
                 for (int i = 0; i < previousIndex; i++) {
                     previousNode = previousNode.next;
                 }
-
+                // Update link of the "previous" node, to point to the new node.
+                // Update link of the new node, to point to the "next" node.
                 temp = previousNode.next;
                 previousNode.next = newNode;
                 newNode.next = temp;
@@ -92,7 +96,11 @@ public class SinglyLinkedList<T> implements Listable<T> {
         }
     }
 
-
+    /**
+     * Method which removes an element from a list
+     *
+     * @param index of element to remove
+     */
     @Override
     public void remove(int index) {
         if (index == 0) {
@@ -120,7 +128,12 @@ public class SinglyLinkedList<T> implements Listable<T> {
         }
     }
 
-
+    /**
+     * Method which gets the data from a specific element
+     *
+     * @param index of element to get
+     * @return data of element to get
+     */
     @Override
     public T get(int index) {
         int size = getSize();
@@ -143,16 +156,27 @@ public class SinglyLinkedList<T> implements Listable<T> {
         }
     }
 
+    /**
+     * Method which seems to clear the list by pointing the head to null and thus making all listed element unreachable
+     */
     @Override
     public void clear() {
         head = null;
     }
 
+    /**
+     * Method which prints one element of the list
+     *
+     * @param index index of element to print
+     */
     @Override
     public void print(int index) {
         System.out.println(get(index));
     }
 
+    /**
+     * Method to print all elements of a list
+     */
     @Override
     public void printAll() {
         Node temp = head;
@@ -162,6 +186,11 @@ public class SinglyLinkedList<T> implements Listable<T> {
         }
     }
 
+    /**
+     * Method which gets the size of a list
+     *
+     * @return int number of elements in a list
+     */
     @Override
     public int getSize() {
         int count = 0;

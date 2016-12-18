@@ -1,6 +1,6 @@
-package Data;
+package data;
 
-import List.DegreeProgram;
+import list.DegreeProgram;
 
 /**
  * Created by laura on 25.10.16.

@@ -1,8 +1,8 @@
 package programm;
-import Data.Student;
-import List.DegreeProgram;
-import List.Listable;
-import List.SinglyLinkedList;
+import data.Student;
+import list.DegreeProgram;
+import list.Listable;
+import list.SinglyLinkedList;
 
 public class Main {
 

@@ -1,4 +1,8 @@
-package List;
+package list;
+
+import comparator.Comparable;
+import list.search.Searchable;
+import list.sort.Sortable;
 
 /**
  * Created by laura on 25.10.16.
@@ -14,7 +18,7 @@ public class SinglyLinkedList<T> implements Listable<T> {
 
 
     /**
-     * Method to add an element to the List
+     * Method to add an element to the list
      * (at the end if there are elements present)
      *
      * @param data data content of the new element
@@ -47,9 +51,7 @@ public class SinglyLinkedList<T> implements Listable<T> {
         Node newNode = new Node();
         newNode.data = data;
         newNode.next = null;
-        if (newNode == null) {
-            throw new IllegalArgumentException("New Node is null!");
-        }
+
         if (getSize() == 0) {
             head = newNode;
         } else {
@@ -71,9 +73,6 @@ public class SinglyLinkedList<T> implements Listable<T> {
         newNode.next = null;
         int previousIndex = index - 1;
 
-        if (newNode == null) {
-            throw new IllegalArgumentException("No data in Node. Node is null.");
-        }
         if (index == 0) {
             addFirst(data);
         } else {
@@ -203,11 +202,21 @@ public class SinglyLinkedList<T> implements Listable<T> {
     }
 
     /**
-     * Method which prints the number of elements
+     * Method which prints the number of elements from a list
      */
     @Override
     public void printSize(){
         System.out.println("The number of elements in this list is: " + getSize());
+    }
+
+    @Override
+    public T search(Searchable<T> searchable, Comparable<T> comparable) {
+        return searchable.search(this, comparable);
+    }
+
+    @Override
+    public void sort(Sortable<T> sortable, Comparable<T> comparable) {
+        sortable.sort(this, comparable);
     }
 }
 

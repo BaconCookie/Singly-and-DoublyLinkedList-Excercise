@@ -1,4 +1,8 @@
-package List;
+package list;
+
+import comparator.Comparable;
+import list.search.Searchable;
+import list.sort.Sortable;
 
 /**
  * Created by laura on 25.10.16.
@@ -15,7 +19,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
     }
 
     /**
-     * Method to add an element to the List
+     * Method to add an element to the list
      * (at the end if there are elements present).
      *
      * @param data data content of the element
@@ -53,9 +57,6 @@ public class DoublyLinkedList<T> implements Listable<T> {
         newNode.next = null;
         newNode.prev = null;
 
-        if (newNode == null) {
-            throw new IllegalArgumentException("New Node is null!");
-        }
         head = newNode;
         tail = newNode;
         newNode.next = null;
@@ -76,9 +77,6 @@ public class DoublyLinkedList<T> implements Listable<T> {
         newNode.prev = null;
         int previousIndex = index - 1;
 
-        if (newNode == null) {
-            throw new IllegalArgumentException("No data in Node. Node is null.");
-        }
         if (index == 0) {
             addFirst(data);
         } else {
@@ -258,10 +256,20 @@ public class DoublyLinkedList<T> implements Listable<T> {
     }
 
     /**
-     * Method which prints the number of elements
+     * Method which prints the number of elements from a list
      */
     @Override
     public void printSize(){
         System.out.println("The number of elements in this list is: " + getSize());
+    }
+
+    @Override
+    public T search(Searchable<T> searchable, Comparable<T> comparable) {
+        return null;
+    }
+
+    @Override
+    public void sort(Sortable<T> sortable, Comparable<T> comparable) {
+
     }
 }

@@ -5,10 +5,8 @@ package List;
  */
 public class DoublyLinkedList<T> implements Listable<T> {
 
-
     private Node head;
     private Node tail;
-    //private int size;
 
     private class Node {
         T data;
@@ -111,7 +109,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
                 tail = tail.prev;
                 tail.next = null; //just to be sure
 
-            } else if (index <= size / 2) { //index is in the first half of the list
+            } else if (index < size / 2) { //index is in the first half of the list
                 int previousIndex = index - 1;
 
                 Node previousNode = head;
@@ -129,14 +127,14 @@ public class DoublyLinkedList<T> implements Listable<T> {
                 previousNode.next = nextNode;
                 nextNode.prev = previousNode;
 
-            } else if (index > size / 2) { //index is in the second half of the list
+            } else if (index >= size / 2) { //index is in the second half of the list
 
                 int nextIndex = index + 1;
 
                 Node previousNode = tail;
                 Node nextNode = tail;
                 //move from tail to head with these two Nodes through the list to find the right spot
-                for (int i = size; i > nextIndex; i--) {
+                for (int i = size - 1; i > nextIndex; i--) {
                     previousNode = previousNode.prev;
                     nextNode = nextNode.prev;
                 }
@@ -157,14 +155,40 @@ public class DoublyLinkedList<T> implements Listable<T> {
     @Override
     public T get(int index) {
         int size = getSize();
+        T data = null;
 
         if (index > 0 || index < size) {
 
+            if (index == 0) {
+                data = head.data;
+
+            } else if (index == size - 1) {
+                data = tail.data;
+
+            } else if (index < size / 2) { //index is in the first half of the list
+                Node searchNode = head;
+
+                //move from head to tail with these two Nodes through the list to find the right spot
+                for (int i = 0; i <= index; i++) {
+                    searchNode = searchNode.next;
+                }
+                data = searchNode.data;
+
+            } else if (index >= size / 2) { //index is in the first half of the list
+                Node searchNode = tail;
+
+                //move from head to tail with these two Nodes through the list to find the right spot
+                for (int i = size - 1; i >= index; i--) {
+                    searchNode = searchNode.prev;
+                }
+                data = searchNode.data;
+            }
+
+            return data;
 
         } else {
-        throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
-    }
-            return null;
+            throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
+        }
     }
 
     @Override
@@ -180,7 +204,6 @@ public class DoublyLinkedList<T> implements Listable<T> {
             System.out.println(temp.data);
             temp = temp.next;
         }
-
     }
 
 

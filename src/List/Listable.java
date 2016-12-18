@@ -24,4 +24,7 @@ public interface Listable<T> {
     public void printAll();
 
     public int getSize();
+
+    public void printSize();
+
 }

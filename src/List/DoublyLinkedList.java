@@ -256,4 +256,12 @@ public class DoublyLinkedList<T> implements Listable<T> {
         }
         return count;
     }
+
+    /**
+     * Method which prints the number of elements
+     */
+    @Override
+    public void printSize(){
+        System.out.println("The number of elements in this list is: " + getSize());
+    }
 }

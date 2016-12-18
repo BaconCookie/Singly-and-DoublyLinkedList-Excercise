@@ -19,6 +19,8 @@ public interface Listable<T> {
 
     public void clear();
 
+    public void print(int index);
+
     public void printAll();
 
     public int getSize();

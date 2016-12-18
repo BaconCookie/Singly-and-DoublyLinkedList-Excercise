@@ -99,7 +99,7 @@ public class SinglyLinkedList<T> implements Listable<T> {
             head.next = head;
         } else {
             int size = getSize();
-            if (index > size - 1|| index < 0) {
+            if (index > size - 1 || index < 0) {
                 throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
             } else {
                 int previousIndex = index - 1;
@@ -123,21 +123,34 @@ public class SinglyLinkedList<T> implements Listable<T> {
 
     @Override
     public T get(int index) {
-        int count = 0;
-        Node temp = head;
-        while (temp != null) {
-            if (count == index) {
-                return temp.data;
+        int size = getSize();
+        T data = null;
+
+        if (index > 0 || index < size) {
+            int count = 0;
+            Node searchNode = head;
+            while (searchNode != null) {
+                if (count == index) {
+                    data = searchNode.data;
+                }
+                count++;
+                searchNode = searchNode.next;
             }
-            count++;
-            temp = temp.next;
+            return data;
+
+        } else {
+            throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
         }
-        return null;
     }
 
     @Override
     public void clear() {
         head = null;
+    }
+
+    @Override
+    public void print(int index) {
+        System.out.println(get(index));
     }
 
     @Override

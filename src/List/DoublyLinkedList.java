@@ -198,6 +198,11 @@ public class DoublyLinkedList<T> implements Listable<T> {
     }
 
     @Override
+    public void print(int index) {
+        System.out.println(get(index));
+    }
+
+    @Override
     public void printAll() {
         Node temp = head;
         while (temp != null) {

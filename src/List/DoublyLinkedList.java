@@ -8,7 +8,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
     private Node head;
     private Node tail;
-    private int size;
+    //private int size;
 
     private class Node {
         T data;
@@ -100,17 +100,14 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
     @Override
     public void remove(int index) {
-        if (index > size - 1 || index < 0) {
-            throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
-        }
+        int size = getSize();
 
-        if (index == 0) {
-            head.next = head;
+        if (index > 0 || index < size) {
 
-        } else {
-            int size = getSize();
+            if (index == 0) {
+                head.next = head;
 
-            if (index == size - 1) {
+            } else if (index == size - 1) {
                 tail = tail.prev;
                 tail.next = null; //just to be sure
 
@@ -151,17 +148,27 @@ public class DoublyLinkedList<T> implements Listable<T> {
                 previousNode.next = nextNode;
                 nextNode.prev = previousNode;
             }
+        } else {
+            throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
         }
     }
 
 
     @Override
     public T get(int index) {
-        return null;
+        int size = getSize();
+
+        if (index > 0 || index < size) {
+
+
+        } else {
+        throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
+    }
+            return null;
     }
 
     @Override
-    public void clear()  {
+    public void clear() {
         head = null;
         tail = null;
     }

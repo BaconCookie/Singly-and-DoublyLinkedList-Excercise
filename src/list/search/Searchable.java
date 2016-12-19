@@ -11,9 +11,9 @@ import list.Listable;
         /**
          * Method which searches in a list
          *
-         * @param list       list to search in
-         * @param comparator the comparator which is being used
+         * @param list list to search in
+         * @param compare the comparator which is being used
          */
-        public T search(Listable<T> list, Comparable<T> comparator);
+        public T search(Listable<T> list, Comparable<T> compare);
     }
 

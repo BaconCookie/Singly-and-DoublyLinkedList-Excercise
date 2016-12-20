@@ -14,6 +14,6 @@ import list.Listable;
          * @param list list to search in
          * @param compare the comparator which is being used
          */
-        public T search(Listable<T> list, Comparable<T> compare);
+        T search(Listable<T> list, Comparable<T> compare);
     }
 

@@ -14,5 +14,5 @@ public interface Comparable<T> {
      * a negative integer, zero, or a positive integer as this object is
      * less than, equal to, or greater than the specified object.
      */
-    public int compare(T object1, T object2);
+    int compare(T object1, T object2);
 }

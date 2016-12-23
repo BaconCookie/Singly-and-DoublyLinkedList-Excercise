@@ -6,11 +6,11 @@ package comparator;
 public interface Comparable<T> {
 
     /**
-     * Method which compares two objects
+     * Method which compares data from two objects
      *
-     * @param object1 first object
-     * @param object2 second object
-     * @return int which is used to compare objects:
+     * @param object1 data from first object
+     * @param object2 data from second object
+     * @return int which is used to compare data / an object:
      * a negative integer, zero, or a positive integer as this object is
      * less than, equal to, or greater than the specified object.
      */

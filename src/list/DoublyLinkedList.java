@@ -3,6 +3,7 @@ package list;
 import comparator.Comparable;
 import list.search.Searchable;
 import list.sort.Sortable;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by laura on 25.10.16.
@@ -26,20 +27,15 @@ public class DoublyLinkedList<T> implements Listable<T> {
      */
     @Override
     public void add(T data) {
-        Node newNode = new Node();
-        newNode.data = data;
-        newNode.next = null;
-        newNode.prev = null;
-
         if (head == null) {
-            head = newNode;
-            tail = newNode;
+            addFirst(data);
         } else {
-            Node temp = head;
-            while (temp.next != null) {
-                temp = temp.next;
-            }
-            temp.next = newNode;
+            Node newNode = new Node();
+            newNode.data = data;
+
+            Node lastNode = tail;
+            lastNode.next = newNode;
+            newNode.prev = lastNode;
             tail = newNode;
         }
     }
@@ -81,8 +77,11 @@ public class DoublyLinkedList<T> implements Listable<T> {
             addFirst(data);
         } else {
             int size = getSize();
-            if (index > size - 1) {
+            if (index > size) {
                 throw new IndexOutOfBoundsException("Index bigger than size!");
+            }
+            if (index == size) {
+                add(data);
             } else {
                 Node previousNode = head;
                 Node temp;
@@ -169,41 +168,54 @@ public class DoublyLinkedList<T> implements Listable<T> {
      */
     @Override
     public T get(int index) {
-        int size = getSize();
-        T data = null;
+        int upperIndexBoundary = getUpperIndexBoundary();
+        int lowerIndexBoundary = 0;
 
-        if (index > 0 || index < size) {
+        T data;
 
-            if (index == 0) {
-                data = head.data;
+        if (index < lowerIndexBoundary || index > upperIndexBoundary) {
+            throw new IndexOutOfBoundsException();
+        }
 
-            } else if (index == size - 1) {
-                data = tail.data;
+        if (index == 0) {
+            data = head.data;
 
-            } else if (index < size / 2) { //index is in the first half of the list
-                Node searchNode = head;
-
-                //move from head to tail with these two Nodes through the list to find the right spot
-                for (int i = 0; i <= index; i++) {
-                    searchNode = searchNode.next;
-                }
-                data = searchNode.data;
-
-            } else if (index >= size / 2) { //index is in the first half of the list
-                Node searchNode = tail;
-
-                //move from head to tail with these two Nodes through the list to find the right spot
-                for (int i = size - 1; i >= index; i--) {
-                    searchNode = searchNode.prev;
-                }
-                data = searchNode.data;
-            }
-
-            return data;
+        } else if (index == upperIndexBoundary) {
+            data = tail.data;
 
         } else {
-            throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
+            data = naiveBinarySearch(index);
         }
+
+        return data;
+    }
+
+    private T naiveBinarySearch(int index) {
+        int upperIndexBoundary = getUpperIndexBoundary();
+        T data;
+        if (index < (upperIndexBoundary / 2)) { //index is in the first half of the list
+            Node searchNode = head;
+
+            //move from head to tail with these two Nodes through the list to find the right spot
+            for (int i = 0; i < index; i++) {
+                searchNode = searchNode.next;
+            }
+            data = searchNode.data;
+
+        } else { //index is in the first half of the list
+            Node searchNode = tail;
+
+            //move from head to tail with these two Nodes through the list to find the right spot
+            for (int i = upperIndexBoundary; i > index; i--) {
+                searchNode = searchNode.prev;
+            }
+            data = searchNode.data;
+        }
+        return data;
+    }
+
+    private int getUpperIndexBoundary() {
+        return getSize() - 1;
     }
 
     /**
@@ -259,17 +271,17 @@ public class DoublyLinkedList<T> implements Listable<T> {
      * Method which prints the number of elements from a list
      */
     @Override
-    public void printSize(){
+    public void printSize() {
         System.out.println("The number of elements in this list is: " + getSize());
     }
 
     @Override
     public T search(Searchable<T> searchable, Comparable<T> comparable) {
-        return null;
+        throw new NotImplementedException();
     }
 
     @Override
     public void sort(Sortable<T> sortable, Comparable<T> comparable) {
-
+        sortable.sort(this, comparable);
     }
 }

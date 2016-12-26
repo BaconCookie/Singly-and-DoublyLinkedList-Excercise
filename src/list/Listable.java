@@ -3,6 +3,7 @@ package list;
 import comparator.Comparable;
 import list.search.Searchable;
 import list.sort.Sortable;
+import predicate.Predicate;
 
 /**
  * Created by laura on 25.10.16.
@@ -30,7 +31,7 @@ public interface Listable<T> {
 
     void printSize();
 
-    T search(Searchable<T> searchable, Comparable<T> comparable);
+    T search(Searchable<T> searchable, Predicate<T> predicate);
 
     void sort(Sortable<T> sortable, Comparable<T> comparable);
 }

@@ -6,7 +6,7 @@ import list.Listable;
 /**
  * Created by laura on 26.12.16.
  */
-public class BubbleSort<T> implements Sortable<T>{
+public class BubbleSort<T> implements Sortable<T> {
 
     @Override
     public void sort(Listable<T> list, Comparable<T> comparer) {
@@ -22,7 +22,7 @@ public class BubbleSort<T> implements Sortable<T>{
     /**
      * Method which switches two objects in a list
      *
-     * @param list list from both objects
+     * @param list     list from both objects
      * @param element1 first object, its data will be stored at the location of the second object after switch
      * @param element2 second object, its data will be stored at the location of the first object after switch
      */
@@ -34,4 +34,5 @@ public class BubbleSort<T> implements Sortable<T>{
         list.remove(element2);
         list.insertAt(element2, dataMemorizedElement1);
         list.printSize();
-}}
+    }
+}

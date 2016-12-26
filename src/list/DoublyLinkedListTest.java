@@ -1,7 +1,6 @@
 package list;
 
 import data.Student;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,19 +51,13 @@ public class DoublyLinkedListTest {
         doublyLinkedList.add(s7);
     }
 
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
     @Test
     public void testAddForEmptyList() throws Exception {
         DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
-        Student studentTest = s1;
+        Student expectedStudent = s1;
         int expectedSize = 1;
-        Student expectedStudent = studentTest;
 
-        doublyLinkedList.add(studentTest);
+        doublyLinkedList.add(expectedStudent);
 
         assertEquals(expectedSize, doublyLinkedList.getSize());
         assertEquals(expectedStudent, doublyLinkedList.get(0));
@@ -90,11 +83,10 @@ public class DoublyLinkedListTest {
     public void testAddFirst() throws Exception {
 
         DoublyLinkedList<Student> doublyLinkedList = new DoublyLinkedList<>();
-        Student studentTest = s1;
+        Student expectedStudent = s1;
         int expectedSize = 1;
-        Student expectedStudent = studentTest;
 
-        doublyLinkedList.addFirst(studentTest);
+        doublyLinkedList.addFirst(expectedStudent);
 
         assertEquals(expectedSize, doublyLinkedList.getSize());
         assertEquals(expectedStudent, doublyLinkedList.get(0));
@@ -133,7 +125,7 @@ public class DoublyLinkedListTest {
     }
 
     @Test
-    public void remove() throws Exception {
+    public void testRemove() throws Exception {
 
         doublyLinkedList.remove(2);
 
@@ -185,16 +177,6 @@ public class DoublyLinkedListTest {
     }
 
     @Test
-    public void print() throws Exception {
-
-    }
-
-    @Test
-    public void printAll() throws Exception {
-
-    }
-
-    @Test
     public void testGetSize() throws Exception {
 
         DoublyLinkedList<Student> doublyLinkedList = new DoublyLinkedList<>();
@@ -222,16 +204,6 @@ public class DoublyLinkedListTest {
 
         String expectedSizeString = "The number of elements in this list is: 7\n";
         assertEquals(expectedSizeString, s);
-    }
-
-    @Test
-    public void search() throws Exception {
-
-    }
-
-    @Test
-    public void sort() throws Exception {
-
     }
 
 }

@@ -3,6 +3,7 @@ package list;
 import comparator.Comparable;
 import list.search.Searchable;
 import list.sort.Sortable;
+import predicate.Predicate;
 
 /**
  * Created by laura on 25.10.16.
@@ -10,6 +11,8 @@ import list.sort.Sortable;
 public class SinglyLinkedList<T> implements Listable<T> {
 
     private Node head;
+    private static final int LOWER_INDEX_BOUNDARY = 0;
+
 
     private class Node {
         T data;
@@ -77,8 +80,11 @@ public class SinglyLinkedList<T> implements Listable<T> {
             addFirst(data);
         } else {
             int size = getSize();
-            if (index > size - 1) {
+            if (index > size) {
                 throw new IndexOutOfBoundsException("Index bigger than size!");
+            }
+            if (index == size) {
+                add(data);
             } else {
                 Node previousNode = head;
                 Node temp;
@@ -103,11 +109,12 @@ public class SinglyLinkedList<T> implements Listable<T> {
     @Override
     public void remove(int index) {
         if (index == 0) {
-            head.next = head;
+            head = head.next;
         } else {
-            int size = getSize();
-            if (index > size - 1 || index < 0) {
-                throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
+            int upperIndexBoundary = getUpperIndexBoundary();
+
+            if (index < LOWER_INDEX_BOUNDARY || index > upperIndexBoundary) {
+                throw new IndexOutOfBoundsException();
             } else {
                 int previousIndex = index - 1;
                 Node previousNode = head;
@@ -135,10 +142,14 @@ public class SinglyLinkedList<T> implements Listable<T> {
      */
     @Override
     public T get(int index) {
-        int size = getSize();
+        int upperIndexBoundary = getUpperIndexBoundary();
+        int lowerIndexBoundary = 0;
+
         T data = null;
 
-        if (index > 0 || index < size) {
+        if (index < lowerIndexBoundary || index > upperIndexBoundary) {
+            throw new IndexOutOfBoundsException();
+        } else {
             int count = 0;
             Node searchNode = head;
             while (searchNode != null) {
@@ -149,11 +160,9 @@ public class SinglyLinkedList<T> implements Listable<T> {
                 searchNode = searchNode.next;
             }
             return data;
-
-        } else {
-            throw new IndexOutOfBoundsException("Index bigger or smaller than size!");
         }
     }
+
 
     /**
      * Method which seems to clear the list by pointing the head to null and thus making all listed element unreachable
@@ -205,13 +214,17 @@ public class SinglyLinkedList<T> implements Listable<T> {
      * Method which prints the number of elements from a list
      */
     @Override
-    public void printSize(){
+    public void printSize() {
         System.out.println("The number of elements in this list is: " + getSize());
     }
 
+    private int getUpperIndexBoundary() {
+        return getSize() - 1;
+    }
+
     @Override
-    public T search(Searchable<T> searchable, Comparable<T> comparable) {
-        return searchable.search(this, comparable);
+    public T search(Searchable<T> searchable, Predicate<T> predicate) {
+        return searchable.search(this, predicate);
     }
 
     @Override

@@ -1,7 +1,8 @@
 package list.search;
 
-import comparator.Comparable;
 import list.Listable;
+import predicate.Predicate;
+
 /**
  * Created by laura on 18.12.16.
  */
@@ -12,8 +13,8 @@ import list.Listable;
          * Method which searches in a list
          *
          * @param list list to search in
-         * @param compare the comparator which is being used
+         * @param predicate the predicate which is being used
          */
-        T search(Listable<T> list, Comparable<T> compare);
+        T search(Listable<T> list, Predicate<T> predicate);
     }
 

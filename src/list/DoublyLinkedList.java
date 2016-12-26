@@ -3,6 +3,7 @@ package list;
 import comparator.Comparable;
 import list.search.Searchable;
 import list.sort.Sortable;
+import predicate.Predicate;
 
 /**
  * Created by laura on 25.10.16.
@@ -158,6 +159,14 @@ public class DoublyLinkedList<T> implements Listable<T> {
         return data;
     }
 
+    /**
+     * Method which searches the element to search by first splitting the list in half.
+     * Only iterates through the half list (max).
+     * Private method of DoublyLinkedList because it is not possible to search from tail to head in a SinglyLinkedList
+     *
+     * @param index of element which is being searched
+     * @return Node belonging to index that is being sought
+     */
     private Node naiveBinarySearch(int index) {
         int upperIndexBoundary = getUpperIndexBoundary();
         Node searchNode;
@@ -243,8 +252,8 @@ public class DoublyLinkedList<T> implements Listable<T> {
     }
 
     @Override
-    public T search(Searchable<T> searchable, Comparable<T> comparable) {
-        return searchable.search(this, comparable);
+    public T search(Searchable<T> searchable, Predicate<T> predicate) {
+        return searchable.search(this, predicate);
     }
 
     @Override

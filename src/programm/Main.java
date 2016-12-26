@@ -1,13 +1,11 @@
 package programm;
 
 import comparator.Comparable;
-import comparator.PrenameComparator;
-import comparator.StudentNumberComparator;
+import comparator.ForenameComparator;
 import data.Student;
 import list.DegreeProgram;
 import list.DoublyLinkedList;
 import list.Listable;
-import list.SinglyLinkedList;
 import list.sort.SelectionSort;
 import list.sort.Sortable;
 
@@ -20,7 +18,7 @@ public class Main {
 
 
         Sortable<Student> sortable = new SelectionSort<>();
-        Comparable comparable = new PrenameComparator();
+        Comparable comparable = new ForenameComparator();
 
         Student s1 = new Student("Zen", "Buddy", 666777, DegreeProgram.GEEKY_STUFF, 8);
         Student s2 = new Student("Anna", "Wei", 890066, DegreeProgram.MATHEMATICS, 0);
@@ -46,7 +44,7 @@ public class Main {
         list.printSize();
         System.out.println();
 
-        
+
         list.sort(sortable, comparable);
 
         System.out.println("After sorting: ");

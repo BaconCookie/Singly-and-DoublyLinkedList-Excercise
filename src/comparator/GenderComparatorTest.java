@@ -6,16 +6,16 @@ import list.DegreeProgram;
 import static org.junit.Assert.*;
 
 /**
- * Created by laura on 23.12.16.
+ * Created by laura on 03.01.17.
  */
-public class ForenameComparatorTest {
+public class GenderComparatorTest {
 
     @org.junit.Test
     public void compareSame() throws Exception {
         Student s1 = new Student("Zen", "Buddy", 666777, DegreeProgram.GEEKY_STUFF, 8);
         Student s2 = new Student("Zen", "Buddy", 666777, DegreeProgram.GEEKY_STUFF, 8);
 
-        Comparable comparable = new ForenameComparator();
+        Comparable comparable = new GenderComparator();
 
         int expected = 0;
 
@@ -28,7 +28,7 @@ public class ForenameComparatorTest {
         Student s1 = new Student("Zen", "Buddy", 666777, DegreeProgram.GEEKY_STUFF, 8);
         Student s2 = new Student("Anna", "Wei", 890066, DegreeProgram.MATHEMATICS, 0);
 
-        Comparable comparable = new ForenameComparator();
+        Comparable comparable = new GenderComparator();
 
         comparable.compare(s1, s2);
     }

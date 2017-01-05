@@ -3,6 +3,7 @@ package programm;
 import comparator.Comparable;
 import comparator.DegreeProgramComparator;
 import comparator.ForenameComparator;
+import controller.Controller;
 import data.Student;
 import list.DegreeProgram;
 import list.DoublyLinkedList;
@@ -15,6 +16,10 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Controller controll = new Controller();
+        controll.runLists();
+
+        /*
         Listable<Student> list = new DoublyLinkedList<>();
 
 
@@ -54,5 +59,6 @@ public class Main {
 
         list.clear();
         list.printAll();
+        */
     }
 }

@@ -8,9 +8,12 @@ import list.DegreeProgram;
 import list.DoublyLinkedList;
 import list.Listable;
 import list.SinglyLinkedList;
+import list.search.LinearSearch;
+import list.search.Searchable;
 import list.sort.BubbleSort;
 import list.sort.SelectionSort;
 import list.sort.Sortable;
+import predicate.*;
 
 import static Prog1Tools.IOTools.readInteger;
 import static Prog1Tools.IOTools.readString;
@@ -25,16 +28,19 @@ public class Controller {
     private Listable<Student> list;
 
     private Sortable<Student> sortable;
-    private Comparable comparable = new DegreeProgramComparator();
+    private Comparable comparable;
+
+    private Searchable searchable;
+    private Predicate predicate;
 
 
     public Controller() {
     }
 
     public void runLists() {
-        action = 1;
+        action = 100;
+        chooseKindOfList();
         while (action != 0) {
-            chooseKindOfList();
             switch (action) {
                 case 1:
                     list.addFirst(userInputStudent());
@@ -43,7 +49,7 @@ public class Controller {
                     list.add(userInputStudent());
                     break;
                 case 3:
-                    userInstertsAt();
+                    userInsertsAt();
                     break;
                 case 4:
                     userRemovesAt();
@@ -57,7 +63,7 @@ public class Controller {
                 case 7:
                     list.printSize();
                     break;
-                case 8: //search
+                case 8: userSearchesInList();
                     break;
                 case 9:
                     userSortsList();
@@ -84,7 +90,7 @@ public class Controller {
         if (whichKindOfList == 1) {
             list = new SinglyLinkedList<>();
         }
-        if (whichKindOfList == 2) {
+        else if (whichKindOfList == 2) {
             list = new DoublyLinkedList<>();
         } else {
             chooseKindOfList();
@@ -114,20 +120,40 @@ public class Controller {
     }
 
     private Student userInputStudent() {
-        String prename = readString("Prename of student: ");
-        String surname = readString("Surname of student: ");
-        int studentNumber = readInteger("Student Number of student: ");
-        System.out.println("Pick the Degree Program: ");
-        System.out.println("ALGORITHMS, COMPUTER_SCIENCE, GEEKY_STUFF, MATHEMATICS, PROGRAMMING");
-        DegreeProgram degreeProgram = DegreeProgram.valueOf(readString("Your pick: "));
-        int gender = readInteger("Gender (as integer) of student: ");
-        ;
+        String forename = pickName("Forename of student: ");
+        String surname = pickName("Surname of student: ");
+        int studentNumber = pickStudentNumber("Student Number of student: ");
+        DegreeProgram degreeProgram = pickDegreeProgram();
+        int gender = pickGender("Gender (as integer) of student: ");
 
-        Student student = new Student(prename, surname, studentNumber, degreeProgram, gender);
+        Student student = new Student(forename, surname, studentNumber, degreeProgram, gender);
         return student;
     }
 
-    private Listable userInstertsAt() {
+    private int pickGender(String s) {
+        return readInteger(s);
+    }
+
+    private int pickStudentNumber(String s) {
+        return readInteger(s);
+    }
+
+    private String pickName(String s) {
+        return readString(s);
+    }
+
+    private DegreeProgram pickDegreeProgram() {
+        try {
+            System.out.println("Pick the Degree Program: ");
+            System.out.println("ALGORITHMS, COMPUTER_SCIENCE, GEEKY_STUFF, MATHEMATICS, PROGRAMMING");
+            DegreeProgram degreeProgram = DegreeProgram.valueOf(pickName("Your pick: ").toUpperCase());
+            return degreeProgram;
+        }catch (IllegalArgumentException exception){
+           return pickDegreeProgram();
+        }
+    }
+
+    private Listable userInsertsAt() {
         int index = readInteger("At which index (integer, list starts with 0) do you wish to insert?: ");
         list.insertAt(index, userInputStudent());
         return list;
@@ -144,9 +170,44 @@ public class Controller {
         list.print(index);
     }
 
+    private void userSearchesInList(){
+        Searchable searchable = new LinearSearch();
+        userChoosesPredicate();
+        Student student = list.search(searchable, predicate);
+        System.out.println(student);
+    }
+
+    private Predicate userChoosesPredicate(){
+        System.out.println("For searching by Forename:       pick 1");
+        System.out.println("              by Surname:        pick 2");
+        System.out.println("              by Student Number: pick 3");
+        System.out.println("              by Degree Program: pick 4");
+        System.out.println("              by Gender:         pick 5");
+        int pickPredicate = readInteger("your pick: ");
+
+        if (pickPredicate == 1) {
+            predicate = new ForenameEqualsPredicate(pickName("Forename of student: "));
+        }
+        else if (pickPredicate == 2) {
+            predicate = new SurnameEqualsPredicate(pickName("Surname of student: "));
+        }
+        else if (pickPredicate == 3) {
+            predicate = new StudentNumberEqualsPredicate(pickStudentNumber("Student Number of student: "));
+        }
+        else if (pickPredicate == 4) {
+            predicate = new DegreeProgramEqualsPredicate(pickDegreeProgram());
+        }
+        else if (pickPredicate == 5) {
+            predicate = new GenderEqualsPredicate(pickGender("Gender (as integer) of student: "));
+        } else {
+            userChoosesPredicate();
+        }
+        return predicate;
+    }
+
     private Listable userSortsList() {
         userChoosesSortable();
-
+        userChoosesComparable();
         list.sort(sortable, comparable);
         return list;
     }
@@ -156,7 +217,7 @@ public class Controller {
         if (pickSortable == 1) {
             sortable = new SelectionSort<>();
         }
-        if (pickSortable == 2) {
+        else if (pickSortable == 2) {
             sortable = new BubbleSort<>();
         } else {
             userChoosesSortable();
@@ -165,25 +226,25 @@ public class Controller {
     }
 
     private Comparable userChoosesComparable() {
-        System.out.println("For comparison by Forename pick 1");
-        System.out.println("by Surname pick 2");
-        System.out.println("by Student Number pick 3");
-        System.out.println("by Degree Program pick 4");
-        System.out.println("by Gender pick 5");
+        System.out.println("For comparison by Forename:        pick 1");
+        System.out.println("by                Surname:         pick 2");
+        System.out.println("by                Student Number:  pick 3");
+        System.out.println("by                Degree Program:  pick 4");
+        System.out.println("by                Gender:          pick 5");
         int pickComparable = readInteger("your pick: ");
         if (pickComparable == 1) {
             comparable = new ForenameComparator();
         }
-        if (pickComparable == 2) {
+        else if (pickComparable == 2) {
             comparable = new SurnameComparator();
         }
-        if (pickComparable == 3) {
+        else if (pickComparable == 3) {
             comparable = new StudentNumberComparator();
         }
-        if (pickComparable == 4) {
+        else if (pickComparable == 4) {
             comparable = new DegreeProgramComparator();
         }
-        if (pickComparable == 5) {
+        else if (pickComparable == 5) {
             comparable = new GenderComparator();
         } else {
             userChoosesComparable();

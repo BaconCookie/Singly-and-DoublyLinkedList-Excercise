@@ -185,7 +185,8 @@ public class SinglyLinkedList<T> implements Listable<T> {
         if (index < lowerIndexBoundary || index > upperIndexBoundary) {
             throw new IndexOutOfBoundsException();
         } else {
-        System.out.println(get(index));
+            System.out.println(get(index));
+        }
     }
 
     /**

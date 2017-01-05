@@ -13,12 +13,12 @@ public class SelectionSort<T> implements Sortable<T> {
     public void sort(Listable<T> list, Comparable<T> comp) {
         int minium = 0;
 
-        for (int i = 0; i < list.getSize(); i++) {
+        for (int i = 0; i < list.getSize(); i++) { //n
             minium = i;
 
-            for (int j = i + 1; j < list.getSize(); j++) {
+            for (int j = i + 1; j < list.getSize(); j++) { //nach Gauß, n/2
                 //compare j and minimum. if < 0 == true, j is smaller than i and they will be switched, otherwise the order remains the same
-                if (comp.compare(list.get(j), list.get(minium)) < 0) {
+                if (comp.compare(list.get(j), list.get(minium)) < 0) { //2* n
                     minium = j;
                 }
             }
@@ -40,8 +40,6 @@ public class SelectionSort<T> implements Sortable<T> {
         list.insertAt(element1, dataMemorizedElement2);
         list.remove(element2);
         list.insertAt(element2, dataMemorizedElement1);
-        list.printSize();
-        //System.out.println(object1);
-        //list.printAll();
+
     }
 }

@@ -63,7 +63,8 @@ public class Controller {
                 case 7:
                     list.printSize();
                     break;
-                case 8: userSearchesInList();
+                case 8:
+                    userSearchesInList();
                     break;
                 case 9:
                     userSortsList();
@@ -89,8 +90,7 @@ public class Controller {
         whichKindOfList = readInteger("Type a '1' for SinglyLinkedList, type a '2' for DoublyLinkedList: ");
         if (whichKindOfList == 1) {
             list = new SinglyLinkedList<>();
-        }
-        else if (whichKindOfList == 2) {
+        } else if (whichKindOfList == 2) {
             list = new DoublyLinkedList<>();
         } else {
             chooseKindOfList();
@@ -119,6 +119,11 @@ public class Controller {
         action = IOTools.readInteger();
     }
 
+    /**
+     * Method to make it possible for the user to put in a student
+     *
+     * @return student which corresponds with the user input
+     */
     private Student userInputStudent() {
         String forename = pickName("Forename of student: ");
         String surname = pickName("Surname of student: ");
@@ -130,54 +135,79 @@ public class Controller {
         return student;
     }
 
-    private int pickGender(String s) {
-        return readInteger(s);
+    private String pickName(String s) {
+        return readString(s);
     }
 
     private int pickStudentNumber(String s) {
         return readInteger(s);
     }
 
-    private String pickName(String s) {
-        return readString(s);
-    }
-
+    /**
+     * Method which takes care of the Degree Program input
+     * reads input as string, which is being converted to enum (if available)
+     *
+     * @return degreeProgram which is available and typed in command line
+     */
     private DegreeProgram pickDegreeProgram() {
         try {
             System.out.println("Pick the Degree Program: ");
             System.out.println("ALGORITHMS, COMPUTER_SCIENCE, GEEKY_STUFF, MATHEMATICS, PROGRAMMING");
             DegreeProgram degreeProgram = DegreeProgram.valueOf(pickName("Your pick: ").toUpperCase());
             return degreeProgram;
-        }catch (IllegalArgumentException exception){
-           return pickDegreeProgram();
+        } catch (IllegalArgumentException exception) {
+            return pickDegreeProgram();
         }
     }
 
+    private int pickGender(String s) {
+        return readInteger(s);
+    }
+
     private Listable userInsertsAt() {
-        int index = readInteger("At which index (integer, list starts with 0) do you wish to insert?: ");
-        list.insertAt(index, userInputStudent());
-        return list;
+        try {
+            int index = readInteger("At which index (integer, list starts with 0) do you wish to insert?: ");
+            list.insertAt(index, userInputStudent());
+            return list;
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            System.out.println("Index out of bounds, try again!");
+            return userInsertsAt();
+        }
     }
 
     private Listable userRemovesAt() {
-        int index = readInteger("Which Student (index integer, list starts with 0) do you wish to remove?: ");
-        list.remove(index);
-        return list;
+        try {
+            int index = readInteger("Which Student (index integer, list starts with 0) do you wish to remove?: ");
+            list.remove(index);
+            return list;
+        } catch (IndexOutOfBoundsException exception) {
+            System.out.println("Index out of bounds, try again!");
+            return userRemovesAt();
+        }
     }
 
     private void userPrintsStudent() {
-        int index = readInteger("Which Student (index integer, list starts with 0) do you wish to print?: ");
-        list.print(index);
+        try {
+            int index = readInteger("Which Student (index integer, list starts with 0) do you wish to print?: ");
+            list.print(index);
+        } catch (IndexOutOfBoundsException exception) {
+            System.out.println("Index out of bounds, try again!");
+            userPrintsStudent();
+        }
     }
 
-    private void userSearchesInList(){
-        Searchable searchable = new LinearSearch();
-        userChoosesPredicate();
-        Student student = list.search(searchable, predicate);
-        System.out.println(student);
+    private void userSearchesInList() {
+        try {
+            Searchable searchable = new LinearSearch();
+            userChoosesPredicate();
+            Student student = list.search(searchable, predicate);
+            System.out.println(student);
+        } catch (Exception exception) {
+            System.out.println("Oops! Something went wrong!");
+        }
     }
 
-    private Predicate userChoosesPredicate(){
+    private Predicate userChoosesPredicate() {
         System.out.println("For searching by Forename:       pick 1");
         System.out.println("              by Surname:        pick 2");
         System.out.println("              by Student Number: pick 3");
@@ -187,17 +217,13 @@ public class Controller {
 
         if (pickPredicate == 1) {
             predicate = new ForenameEqualsPredicate(pickName("Forename of student: "));
-        }
-        else if (pickPredicate == 2) {
+        } else if (pickPredicate == 2) {
             predicate = new SurnameEqualsPredicate(pickName("Surname of student: "));
-        }
-        else if (pickPredicate == 3) {
+        } else if (pickPredicate == 3) {
             predicate = new StudentNumberEqualsPredicate(pickStudentNumber("Student Number of student: "));
-        }
-        else if (pickPredicate == 4) {
+        } else if (pickPredicate == 4) {
             predicate = new DegreeProgramEqualsPredicate(pickDegreeProgram());
-        }
-        else if (pickPredicate == 5) {
+        } else if (pickPredicate == 5) {
             predicate = new GenderEqualsPredicate(pickGender("Gender (as integer) of student: "));
         } else {
             userChoosesPredicate();
@@ -206,18 +232,22 @@ public class Controller {
     }
 
     private Listable userSortsList() {
-        userChoosesSortable();
-        userChoosesComparable();
-        list.sort(sortable, comparable);
-        return list;
+        try {
+            userChoosesSortable();
+            userChoosesComparable();
+            list.sort(sortable, comparable);
+            return list;
+        } catch (Exception exception) {
+            System.out.println("Oops! Something went wrong! Try again.");
+            return userSortsList();
+        }
     }
 
     private Sortable userChoosesSortable() {
         int pickSortable = readInteger("For SelectionSort pick 1, for BubbleSort pick 2: ");
         if (pickSortable == 1) {
             sortable = new SelectionSort<>();
-        }
-        else if (pickSortable == 2) {
+        } else if (pickSortable == 2) {
             sortable = new BubbleSort<>();
         } else {
             userChoosesSortable();
@@ -234,17 +264,13 @@ public class Controller {
         int pickComparable = readInteger("your pick: ");
         if (pickComparable == 1) {
             comparable = new ForenameComparator();
-        }
-        else if (pickComparable == 2) {
+        } else if (pickComparable == 2) {
             comparable = new SurnameComparator();
-        }
-        else if (pickComparable == 3) {
+        } else if (pickComparable == 3) {
             comparable = new StudentNumberComparator();
-        }
-        else if (pickComparable == 4) {
+        } else if (pickComparable == 4) {
             comparable = new DegreeProgramComparator();
-        }
-        else if (pickComparable == 5) {
+        } else if (pickComparable == 5) {
             comparable = new GenderComparator();
         } else {
             userChoosesComparable();

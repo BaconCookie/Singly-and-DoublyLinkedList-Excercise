@@ -179,6 +179,12 @@ public class SinglyLinkedList<T> implements Listable<T> {
      */
     @Override
     public void print(int index) {
+        int upperIndexBoundary = getUpperIndexBoundary();
+        int lowerIndexBoundary = 0;
+
+        if (index < lowerIndexBoundary || index > upperIndexBoundary) {
+            throw new IndexOutOfBoundsException();
+        } else {
         System.out.println(get(index));
     }
 

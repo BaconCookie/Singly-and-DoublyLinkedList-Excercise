@@ -9,7 +9,7 @@ public class GenderComparator implements Comparable<Student> {
 
     @Override
     public int compare(Student student1, Student student2) {
-        return student1.getStudentNumber() - student2.getStudentNumber();
+        return student1.getGender() - student2.getGender();
     }
 }
 

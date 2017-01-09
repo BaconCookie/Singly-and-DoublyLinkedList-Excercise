@@ -12,11 +12,12 @@ public class SelectionSort<T> implements Sortable<T> {
     @Override
     public void sort(Listable<T> list, Comparable<T> comp) {
         int minium = 0;
+        int listSize = list.getSize();
 
-        for (int i = 0; i < list.getSize(); i++) { //n
+        for (int i = 0; i < listSize; i++) { //n
             minium = i;
 
-            for (int j = i + 1; j < list.getSize(); j++) { //nach Gauß, n/2
+            for (int j = i + 1; j < listSize; j++) { //nach Gauß, n/2
                 //compare j and minimum. if < 0 == true, j is smaller than i and they will be switched, otherwise the order remains the same
                 if (comp.compare(list.get(j), list.get(minium)) < 0) { //2* n
                     minium = j;

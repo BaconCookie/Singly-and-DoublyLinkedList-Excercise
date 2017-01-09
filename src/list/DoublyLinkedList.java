@@ -52,10 +52,17 @@ public class DoublyLinkedList<T> implements Listable<T> {
         Node newNode = new Node();
         newNode.data = data;
 
-        head = newNode;
-        tail = newNode;
-        newNode.next = null;
-        newNode.prev = null;
+        if (getSize() == 0) {
+            head = newNode;
+            tail = newNode;
+            newNode.next = null;
+            newNode.prev = null;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+
     }
 
     /**
